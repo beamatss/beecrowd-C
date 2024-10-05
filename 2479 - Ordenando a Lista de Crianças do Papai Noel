@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+
+
+
+void ordem_alfabetica(char nomes[][100], int N) {
+    char suport[21];
+
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (strcmp(nomes[j] + 1, nomes[j + 1] + 1) > 0) {
+                
+                strcpy(suport, nomes[j]);
+                strcpy(nomes[j], nomes[j + 1]);
+                strcpy(nomes[j + 1], suport);
+            }
+        }
+    }
+}
+
+int main() {
+    int N;
+    int contador_bem = 0, contador_mal = 0;
+
+   
+    scanf("%d", &N);
+
+    char nomes[21][100];
+
+
+    for (int i = 0; i < N; i++) {
+        scanf(" %c %20s", &nomes[i][0], &nomes[i][1]);  // esse 20s limita o nome a 20 carac
+        if (nomes[i][0] == '+') {
+            contador_bem++;
+        } else{
+            if(nomes[i][0] == '-'){
+                contador_mal++;
+            } // if
+        }// else 
+    } // for
+
+    ordem_alfabetica(nomes, N); // chamando a funcao
+    for (int i = 0; i < N; i++) {
+        printf("%s\n", &nomes[i][1]); 
+    }
+
+    printf("Se comportaram: %d | Nao se comportaram: %d\n", contador_bem, contador_mal);
+
+    return 0;
+}
